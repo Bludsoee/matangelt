@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const logoLinks = document.querySelectorAll('.logo');
     const currentPage = window.location.pathname.split('/').pop() || 'index.html';
     const items = document.querySelectorAll('.scroll-item');
+    const header = document.querySelector('.hobbies-header');
 
     // Helper to open/close the menu
     function toggleMenu(open) {
@@ -97,29 +98,42 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updateActiveItem() {
         const viewportMiddle = window.innerHeight / 2;
-        let currentItem = null;
+        let currentIndex = -1;
 
-        items.forEach(item => {
+        items.forEach((item, idx) => {
             const rect = item.getBoundingClientRect();
-            // If the item's top is above the center and its bottom is below the center,
-            // it's the one intersecting the middle of the viewport
             if (rect.top <= viewportMiddle && rect.bottom >= viewportMiddle) {
-                currentItem = item;
+                currentIndex = idx;
             }
         });
 
-        if (currentItem) {
+        if (currentIndex !== -1) {
+            // Update the active class
             items.forEach(item => item.classList.remove('active'));
-            currentItem.classList.add('active');
+            items[currentIndex].classList.add('active');
+
+            // Align the header: first two items -> right; last two -> left
+            if (currentIndex < 2) {
+                header.classList.add('align-right');
+                header.classList.remove('align-left');
+            } else {
+                header.classList.add('align-left');
+                header.classList.remove('align-right');
+            }
         }
     }
 
     if (items.length > 0) {
-        // Make sure the first item is active when the page loads
+        // Activate the first item on load
         items[0].classList.add('active');
-        updateActiveItem(); // set the active item based on initial scroll
+        header.classList.add('align-right'); // initial alignment for the first two images
+
+        // Set up scroll and resize listeners
         window.addEventListener('scroll', updateActiveItem);
-        window.addEventListener('resize', updateActiveItem); // recalc on resize
+        window.addEventListener('resize', updateActiveItem);
+
+        // Run once on load in case the first item is already in view
+        updateActiveItem();
     }
 
 });
