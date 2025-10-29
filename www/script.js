@@ -124,3 +124,35 @@ function toggleMenu(open) {
     }
 }
 
+document.addEventListener('DOMContentLoaded', function () {
+    // Toggle overlay menu
+    const burger = document.querySelector('.burger');
+    const overlay = document.getElementById('overlay');
+
+    // Only attach a handler if both elements exist
+    if (burger && overlay) {
+        burger.addEventListener('click', () => {
+            const expanded = burger.getAttribute('aria-expanded') === 'true';
+            // aria-expanded must be a string
+            burger.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+            // Toggle the body and overlay classes; pass a boolean so they stay in sync
+            document.body.classList.toggle('menu-open', !expanded);
+            overlay.classList.toggle('active', !expanded);
+        });
+    }
+
+    // Scroll gallery effect: fade between images (optional)
+    const items = document.querySelectorAll('.scroll-item');
+    if (items.length > 0 && 'IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    items.forEach(item => item.classList.remove('active'));
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.5 });
+
+        items.forEach(item => observer.observe(item));
+    }
+});
