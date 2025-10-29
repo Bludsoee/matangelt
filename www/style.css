@@ -1,0 +1,377 @@
+:root {
+    --background-color: #f5f5f5;
+    --dark-color: #131813;
+    --accent-color: #c0e322;
+    --text-color: #222;
+    --nav-overlay-bg: rgba(19, 24, 19, 0.95);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    color: var(--text-color);
+    background: var(--background-color);
+    overflow-x: hidden;
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 200;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+}
+
+.logo {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+    text-decoration: none;
+}
+
+/* Default colours for the stacked name */
+.logo-first {
+    font-size: 1.8rem;
+    font-weight: 300;
+    color: #000000;
+}
+
+.logo-last {
+    font-size: 1.2rem;
+    font-weight: 1000;
+    color: #000000;
+}
+
+/* When the menu is open, make both names white */
+body.menu-open .logo-first,
+body.menu-open .logo-last {
+    color: #ffffff;
+}
+
+
+.burger {
+    position: relative;
+    width: 42px;
+    height: 36px;
+    padding: 6px;
+    border: 2px solid var(--dark-color);
+    border-radius: 4px;
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 201;
+    overflow: hidden;
+}
+
+.burger .bar {
+    position: relative;
+    z-index: 2;
+    height: 3px;
+    width: 100%;
+    background: var(--dark-color);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.burger.open {
+    border-color: #ffffff;
+}
+
+.burger.open .bar:nth-child(1) {
+    transform: translateY(12px) rotate(45deg);
+}
+
+.burger.open .bar:nth-child(2) {
+    opacity: 0;
+}
+
+.burger.open .bar:nth-child(3) {
+    transform: translateY(-12px) rotate(-45deg);
+}
+
+.burger.open .bar {
+    background: #ffffff;
+}
+
+.burger::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--accent-color);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+    z-index: 1;
+}
+
+.burger:hover::after {
+    transform: scaleX(1);
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--nav-overlay-bg);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0s linear 0.4s;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 80;
+    overflow: hidden;
+}
+
+.overlay.active {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.4s ease;
+}
+
+.overlay-content {
+    max-width: 1200px;
+    width: 90%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    transform: translateY(-20px);
+    transition: transform 0.4s ease;
+}
+
+.overlay.active .overlay-content {
+    transform: translateY(0);
+}
+
+.overlay-images {
+    width: 45%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.overlay-images .img-box {
+    background-size: cover;
+    background-position: center;
+    aspect-ratio: 1/1;
+    border-radius: 4px;
+}
+
+.img1 {
+    background: #444;
+}
+
+.img2 {
+    background: #666;
+}
+
+.img3 {
+    background: #888;
+}
+
+.img4 {
+    background: #aaa;
+}
+
+.overlay-nav {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.overlay-nav .nav-link {
+    font-size: 2rem;
+    font-weight: 700;
+    text-decoration: none;
+    color: #fff;
+    display: inline-block;
+    transition: color 0.3s ease;
+}
+
+.overlay-nav .nav-link:hover {
+    color: var(--accent-color);
+}
+
+.loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--dark-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 1.5rem;
+    z-index: 90;
+}
+
+.loader.hidden {
+    display: none;
+}
+
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8rem 2rem 4rem;
+    gap: 2rem;
+}
+
+.hero-text {
+    flex: 1;
+}
+
+.hero-text h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--dark-color);
+}
+
+.hero-text p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.hero-image {
+    flex: 1;
+}
+
+.hero-image img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+section {
+    padding: 2rem;
+}
+
+section h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: var(--dark-color);
+}
+
+section p {
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+@media (max-width: 900px) {
+    .overlay-content {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .overlay-images,
+    .overlay-nav {
+        width: 100%;
+    }
+
+    .hero {
+        flex-direction: column;
+        text-align: center;
+        padding-top: 7rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .overlay-nav .nav-link {
+        font-size: 1.5rem;
+    }
+
+    .hero-text h1 {
+        font-size: 2rem;
+    }
+}
+
+.cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: rgba(192, 227, 34, 0.3);
+    box-shadow: 0 0 20px rgba(192, 227, 34, 0.4);
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    transition: width 0.2s, height 0.2s;
+}
+
+.navbar button:hover~.cursor,
+.overlay-nav .nav-link:hover~.cursor {
+    transform: translate(-50%, -50%) scale(1.4);
+}
+
+.overlay-nav .nav-link span {
+    display: inline-block;
+    transform: translateY(0);
+    transition: transform 0.25s ease;
+}
+
+.overlay-nav .nav-link:hover span:nth-child(odd) {
+    transform: translateY(-2px);
+}
+
+.overlay-nav .nav-link:hover span:nth-child(even) {
+    transform: translateY(2px);
+}
+
+.overlay-nav .nav-link.disabled {
+    opacity: 0.4;
+    pointer-events: none;
+    cursor: default;
+}
+
+.logo.disabled {
+    pointer-events: none;
+}
+
+body.menu-open .logo.disabled .logo-first,
+body.menu-open .logo.disabled .logo-last {
+    color: #ffffff;
+    opacity: 0.6;
+}
+
+.loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--dark-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 90;
+}
+
+.loader img.loading-gif {
+    width: 100%;
+    height: 100%;
+}
+
+.loader.hidden {
+    display: none;
+}
