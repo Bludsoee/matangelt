@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const navLinks = document.querySelectorAll('.overlay-nav .nav-link');
     const logoLinks = document.querySelectorAll('.logo');
     const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    const items = document.querySelectorAll('.scroll-item');
 
     // Helper to open/close the menu
     function toggleMenu(open) {
@@ -94,17 +95,31 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     animateCursor();
 
-    // Scroll gallery effect for hobbies page
-    const items = document.querySelectorAll('.scroll-item');
-    if (items.length && 'IntersectionObserver' in window) {
-        const observer = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    items.forEach(item => item.classList.remove('active'));
-                    entry.target.classList.add('active');
-                }
-            });
-        }, { threshold: 0.5 });
-        items.forEach(item => observer.observe(item));
+    function updateActiveItem() {
+        const viewportMiddle = window.innerHeight / 2;
+        let currentItem = null;
+
+        items.forEach(item => {
+            const rect = item.getBoundingClientRect();
+            // If the item's top is above the center and its bottom is below the center,
+            // it's the one intersecting the middle of the viewport
+            if (rect.top <= viewportMiddle && rect.bottom >= viewportMiddle) {
+                currentItem = item;
+            }
+        });
+
+        if (currentItem) {
+            items.forEach(item => item.classList.remove('active'));
+            currentItem.classList.add('active');
+        }
     }
+
+    if (items.length > 0) {
+        // Make sure the first item is active when the page loads
+        items[0].classList.add('active');
+        updateActiveItem(); // set the active item based on initial scroll
+        window.addEventListener('scroll', updateActiveItem);
+        window.addEventListener('resize', updateActiveItem); // recalc on resize
+    }
+
 });

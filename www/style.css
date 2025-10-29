@@ -396,26 +396,66 @@ body.menu-open .logo.disabled .logo-last {
     display: none;
 }
 
-/* Scroll gallery styles */
+/* Scroll gallery container */
 .scroll-gallery {
     position: relative;
-    margin: 4rem 0;
+    padding: 0;
+    /* remove extra whitespace */
+    min-height: 100vh;
 }
 
+/* Each scroll item sticks to the middle of the viewport */
 .scroll-item {
-    /* Each section takes up most of the viewport height so they appear one‑after‑another when scrolling */
-    min-height: 80vh;
+    height: 40vh;
+    /* small height so they overlap */
+    position: sticky;
+    top: 50%;
+    /* stick when the item reaches the middle of the viewport */
+    transform: translateY(-50%);
+    /* center the item vertically */
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
+    align-items: flex-start;
     opacity: 0;
-    transition: opacity 0.5s ease;
+    /* hidden by default */
+    transition: opacity 0.6s ease;
+    pointer-events: none;
+    /* disable interaction when inactive */
 }
 
+/* Make the active item visible */
+.scroll-item.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Place each item in a roughly central position, with small diagonal offsets */
+.scroll-item:nth-child(1) {
+    margin-left: 10vw;
+    /* give the first item some horizontal offset */
+    margin-top: 8vh;
+    /* push it down a bit so it’s visible */
+}
+
+.scroll-item:nth-child(2) {
+    margin-left: 25vw;
+    margin-top: 10vh;
+}
+
+.scroll-item:nth-child(3) {
+    margin-left: 40vw;
+    margin-top: 12vh;
+}
+
+.scroll-item:nth-child(4) {
+    margin-left: 55vw;
+    margin-top: 14vh;
+}
+
+/* Constrain image size so all four combined would still fit in one row */
 .scroll-item img {
     max-width: 25vw;
-    /* if all four were visible, they’d take less than one full width */
     height: auto;
     margin-bottom: 1rem;
     border-radius: 4px;
@@ -423,9 +463,25 @@ body.menu-open .logo.disabled .logo-last {
 
 .scroll-item p {
     max-width: 40vw;
-    text-align: center;
 }
 
-.scroll-item.active {
-    opacity: 1;
+/* Keep the header visible while scrolling */
+.hobbies-header {
+    position: sticky;
+    top: 10vh;
+    /* sticks 10% down from the top of the viewport */
+    z-index: 1000;
+    /* ensure it stays above the gallery items */
+    margin-bottom: 2rem;
+}
+
+/* optional: style the header text */
+.hobbies-header h1 {
+    margin: 0 0 0.5rem;
+}
+
+.hobbies-header p {
+    margin: 0;
+    max-width: 60ch;
+    /* keep text readable */
 }
