@@ -396,27 +396,36 @@ body.menu-open .logo.disabled .logo-last {
     display: none;
 }
 
-/* Scroll gallery effect */
+/* Scroll gallery styles */
 .scroll-gallery {
     position: relative;
-    width: 100%;
+    margin: 4rem 0;
 }
 
 .scroll-item {
-    height: 100vh;
-    position: relative;
+    /* Each section takes up most of the viewport height so they appear one‑after‑another when scrolling */
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.5s ease;
 }
 
 .scroll-item img {
-    width: 100%;
-    height: 100vh;
-    object-fit: cover;
-    position: sticky;
-    top: 0;
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out;
+    max-width: 25vw;
+    /* if all four were visible, they’d take less than one full width */
+    height: auto;
+    margin-bottom: 1rem;
+    border-radius: 4px;
 }
 
-.scroll-item.active img {
+.scroll-item p {
+    max-width: 40vw;
+    text-align: center;
+}
+
+.scroll-item.active {
     opacity: 1;
 }
