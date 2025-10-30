@@ -42,14 +42,30 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Navigation with loading spinner
-    function navigateWithLoader(href) {
-        toggleMenu(false);
+    function navigateWithLoader(url) {
+        const loader = document.querySelector('.loader');
+        const hobbiesHeader = document.querySelector('.hobbies-header');
+
+        // Show loader
         loader.classList.remove('hidden');
+
+        // Hide hobbies header, if present
+        if (hobbiesHeader) {
+            hobbiesHeader.classList.add('hidden');
+        }
+
+        // Give the loader time to show, then navigate
         setTimeout(() => {
-            window.location.href = href;
+            window.location.href = url;
         }, 600);
     }
+
+    window.addEventListener('load', () => {
+        const hobbiesHeader = document.querySelector('.hobbies-header');
+        if (hobbiesHeader) {
+            hobbiesHeader.classList.remove('hidden');
+        }
+    });
 
     // Set up navigation links
     navLinks.forEach(link => {

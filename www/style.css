@@ -259,7 +259,6 @@ body.menu-open .logo-last {
     background-position: center;
 }
 
-
 .loader {
     position: fixed;
     top: 0;
@@ -272,7 +271,7 @@ body.menu-open .logo-last {
     justify-content: center;
     color: #fff;
     font-size: 1.5rem;
-    z-index: 90;
+    z-index: 1100;
 }
 
 .loader.hidden {
@@ -307,7 +306,7 @@ body.menu-open .logo-last {
 }
 
 .hero-image img {
-    width: 100%;
+    width: 80%;
     border-radius: 8px;
 }
 
@@ -427,6 +426,10 @@ body.menu-open .logo.disabled .logo-last {
     display: none;
 }
 
+.hidden {
+    display: none;
+}
+
 /* Scroll gallery container */
 .scroll-gallery {
     position: relative;
@@ -496,16 +499,13 @@ body.menu-open .logo.disabled .logo-last {
     max-width: 40vw;
 }
 
-/* Base header styles */
 .hobbies-header {
     position: sticky;
     top: 10vh;
     left: 5vw;
-    /* starting from 5vw from the left edge */
     width: 30vw;
     z-index: 1000;
     transition: transform 0.5s ease;
-    /* animate horizontal movement */
 }
 
 /* Align header to the left (no transform shift) */
