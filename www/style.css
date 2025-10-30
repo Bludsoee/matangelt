@@ -50,15 +50,25 @@ body::before {
     /* keep it behind everything */
 }
 
+/* Default navbar styling (white background) */
 .navbar {
     position: fixed;
     top: 0;
+    left: 0;
     width: 100%;
-    z-index: 200;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 2rem;
+    padding: 1rem 1.5rem;
+    z-index: 2000;
+    transition: background-color 0.3s ease;
+    background-color: white;
+    pointer-events: all;
+}
+
+/* When the burger menu is open, make the navbar transparent */
+body.menu-open .navbar {
+    background-color: transparent;
 }
 
 .logo {
@@ -115,6 +125,10 @@ body.menu-open .logo-last {
 
 .burger.open {
     border-color: #ffffff;
+}
+
+.burger.open .navbar {
+    background: transparent;
 }
 
 .burger.open .bar:nth-child(1) {
@@ -530,4 +544,45 @@ body.menu-open .logo.disabled .logo-last {
     margin: 0;
     max-width: 60ch;
     /* keep text readable */
+}
+
+/* Carousel container stays the same */
+.carousel {
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    margin: 2rem 0;
+    padding-bottom: 1rem;
+}
+
+/* Track holds items side by side with spacing */
+.carousel-track {
+    display: flex;
+    gap: 1.5rem;
+}
+
+/* Each carousel item now uses ~60% of the viewport width and has a max width */
+.carousel-item {
+    flex: 0 0 60vw;
+    /* 60% of viewport width */
+    max-width: 400px;
+    /* cap the width on large screens */
+    scroll-snap-align: start;
+    text-align: center;
+}
+
+/* Image styling */
+.carousel-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.carousel-item p {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.4;
 }
